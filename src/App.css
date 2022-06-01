@@ -9,4 +9,5 @@ table{
 td , th{
   padding: 6px;
   text-transform: capitalize;
+  text-align: center;
 }

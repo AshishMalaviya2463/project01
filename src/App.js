@@ -120,6 +120,8 @@ function App() {
     }
   ];
 
+  let filterMedicine = medicine.filter((d) => d.status === true && d.expiry >= 2022);
+  let redMedi = filterMedicine.reduce((acc , curr) => acc + curr.price , 0)
 
   let emp = [
     {
@@ -158,6 +160,8 @@ function App() {
       status: true
     },
   ]
+
+  let filterEmp = emp.filter((d) => d.status === true);
 
   return (
     <>
@@ -355,21 +359,26 @@ function App() {
         </thead>
         <tbody>
           {
-            medicine.map((v) => {
+            filterMedicine.map((v) => {
+              let { id, name, quantity, price, expiry, status } = v;
               return (
                 <>
                   <tr>
-                    <td>{v.id}</td>
-                    <td>{v.name}</td>
-                    <td>{v.quantity}</td>
-                    <td>{v.price}</td>
-                    <td>{v.expiry}</td>
-                    <td>{v.status.toString()}</td>
+                    <td>{id}</td>
+                    <td>{name}</td>
+                    <td>{quantity}</td>
+                    <td>{price}</td>
+                    <td>{expiry}</td>
+                    <td>{status.toString()}</td>
                   </tr>
                 </>
               );
             })
           }
+          <tr>
+            <th colSpan={5}>Total price</th>
+            <td>{redMedi}</td>
+          </tr>
         </tbody>
       </table>
 
@@ -381,19 +390,23 @@ function App() {
             <th>salary</th>
             <th>bonus</th>
             <th>status</th>
+            <th>total salary of employee</th>
           </tr>
         </thead>
         <tbody>
           {
-            emp.map((v) => {
+            filterEmp.map((v) => {
+              let { name, age, salary, bonus, status } = v;
+              let total = v.salary + v.bonus;
               return (
                 <>
                   <tr>
-                    <td>{v.name}</td>
-                    <td>{v.age}</td>
-                    <td>{v.salary}</td>
-                    <td>{v.bonus}</td>
-                    <td>{v.status.toString()}</td>
+                    <td>{name}</td>
+                    <td>{age}</td>
+                    <td>{salary}</td>
+                    <td>{bonus}</td>
+                    <td>{status.toString()}</td>
+                    <td>{total}</td>
                   </tr>
                 </>
               );
