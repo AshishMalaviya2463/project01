@@ -121,7 +121,7 @@ function App() {
   ];
 
   let filterMedicine = medicine.filter((d) => d.status === true && d.expiry >= 2022);
-  let redMedi = filterMedicine.reduce((acc , curr) => acc + curr.price , 0)
+  let redMedi = filterMedicine.reduce((acc, curr) => acc + curr.price, 0)
 
   let emp = [
     {
@@ -162,6 +162,9 @@ function App() {
   ]
 
   let filterEmp = emp.filter((d) => d.status === true);
+  let totalsalarybonus = 0;
+  let totalSalary = 0;
+  let totalBonus = 0;
 
   return (
     <>
@@ -172,7 +175,7 @@ function App() {
             <th>age</th>
           </tr>
         </thead>
-        {person.map((v , i) => {
+        {person.map((v, i) => {
           return (
             <>
               <tbody>
@@ -201,7 +204,7 @@ function App() {
               <td>{person1.name}</td>
               <td>{person1.age}</td>
               {
-                person1.course.map((v , i) => {
+                person1.course.map((v, i) => {
                   return (
                     <>
                       <td key={i}>{v}</td>
@@ -225,14 +228,14 @@ function App() {
         </thead>
         <tbody>
           {
-            person2.map((v , i) => {
+            person2.map((v, i) => {
               return (
                 <>
                   <tr key={i}>
                     <td>{v.name}</td>
                     <td>{v.age}</td>
                     {
-                      v.course.map((val , id) => {
+                      v.course.map((val, id) => {
                         return (
                           <>
                             <td key={id}>{val}</td>
@@ -321,7 +324,7 @@ function App() {
                 <td>{data.personal_info.age}</td>
                 <td>{data.personal_info.city}</td>
                 {
-                  data.courses.map((v , i) => {
+                  data.courses.map((v, i) => {
                     return (
                       <td key={i}>{v}</td>
                     );
@@ -359,7 +362,7 @@ function App() {
         </thead>
         <tbody>
           {
-            filterMedicine.map((v , i) => {
+            filterMedicine.map((v, i) => {
               let { id, name, quantity, price, expiry, status } = v;
               return (
                 <>
@@ -395,9 +398,12 @@ function App() {
         </thead>
         <tbody>
           {
-            filterEmp.map((v , i) => {
+            filterEmp.map((v, i) => {
               let { name, age, salary, bonus, status } = v;
-              let total = v.salary + v.bonus;
+              let salarybonus = v.salary + v.bonus;
+              totalsalarybonus += salarybonus;
+              totalBonus += v.bonus;
+              totalSalary += v.salary;
               return (
                 <>
                   <tr key={i}>
@@ -406,12 +412,19 @@ function App() {
                     <td>{salary}</td>
                     <td>{bonus}</td>
                     <td>{status.toString()}</td>
-                    <td>{total}</td>
+                    <td>{salarybonus}</td>
                   </tr>
                 </>
               );
             })
           }
+          <tr>
+            <td colSpan={2}></td>
+            <td>{totalSalary}</td>
+            <td>{totalBonus}</td>
+            <td></td>
+            <td>{totalsalarybonus}</td>
+          </tr>
         </tbody>
       </table>
     </>
