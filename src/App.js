@@ -1,20 +1,26 @@
-import React from 'react'
-import TimerFunc from './container/TimerFunc'
-// import TimerClass from './container/TimerClass'
-// import Counter from './container/Counter'
-// import CityClass from './container/CityClass'
-// import CityFun from './container/CityFun'
-// import CountryFun from './container/CountryFun'
+import React, { useEffect, useState } from 'react'
+import HomePage from './container/HomePage';
+import Loading from './container/Loading';
+const LoadingWithHomepage = Loading(HomePage);
 
 export default function App() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    let dataSet = [
+      { id: 101, name: 'ashish' },
+      { id: 102, name: 'ishan' }
+    ];
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false); setData(dataSet);
+    }, 2500)
+  }, [])
+
   return (
     <>
-      {/* <CityClass />
-      <CityFun /> */}
-      {/* <CountryFun /> */}
-      {/* <Counter /> */}
-      {/* <TimerClass /> */}
-      <TimerFunc />
+      <LoadingWithHomepage isLoading={loading} data={data} />
     </>
   )
 }
